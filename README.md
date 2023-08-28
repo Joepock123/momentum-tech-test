@@ -1,5 +1,53 @@
 # Momementum Tech Task
 
+## Acceptability Criteria
+
+- [x] Provided a list of company domains firstly check to see if the URL `https://${COMPANY_NAME}.zendesk.com` returns a 200 status code.
+- [x] Secondly, using a cname lookup, check to see if a support or help domain points to a domain ending in .zendesk.com.
+- [x] Provide a response that provides the login and support pages login URLs for each domain.
+
+## Testing
+### Send a request
+The server is deployed at https://momentum-tech-test.onrender.com. Below is an example of the endpoint and body.
+
+```
+curl -X POST "https://momentum-tech-test.onrender.com/zendesk/pages" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "domains": [
+             "mediatemple.net",
+             "myspace.com",
+             "laseraway.com"
+           ]
+         }'
+```
+
+### Response
+
+```
+type TResponse = IPages[]
+interface IPages {
+  search: string; // The domain name that was searched
+  loginPage: string[]; // The login page for the domain
+  supportPage: string[]; // The support page for the domain
+}
+```
+
+## Approach
+- I prioritised simplicity and development speed.
+- `express-validator` is used for basic validation of the request.
+- I used the neat `dns` package instead of the MXToolbox API to do the cname lookup. 
+- The response is structured to be easily parsed by the client.
+- The server is deployed using Render which is 10x nicer to use than Heroku.
+
+## Next steps
+- Enhanced validation middleware to check the domains are in the correct format.
+- Check for zendesk clues by inspecting the headers, HTML content, or cookies.
+
+---
+
+## Introduction
+
 An important data point for many of the companies we work with is are they currently using a competitor.
 
 One of the companies more specifically wants to know is a company using Zendesk or not.
