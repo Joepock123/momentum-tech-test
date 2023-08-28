@@ -1,9 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es2016",                          
-    "module": "commonjs",   
+    "outDir": "./build/app",
+    "rootDir": "./app",
+    "target": "es2016",
+    "module": "commonjs",
     "resolveJsonModule": true,
-    "strict": true,                           
-    "esModuleInterop": true                   
-  }
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "app/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
